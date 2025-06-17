@@ -25,7 +25,7 @@ def get_queryset(self):
 class DeviceListCreateView(generics.ListCreateAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
-    permission_classes = [IsAllowedTechnicianOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, IsAllowedTechnicianOrReadOnly]
 
 class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DeviceSerializer
