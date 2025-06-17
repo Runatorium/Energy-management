@@ -23,3 +23,5 @@ class MetricsSubcriptionSerializer(serializers.ModelSerializer):
         model = MetricsSubcription
         fields = "__all__"
         read_only_fields = ['created_by', 'created_on']
+
+

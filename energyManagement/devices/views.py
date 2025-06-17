@@ -5,7 +5,22 @@ from rest_framework import generics, permissions
 from rest_framework.permissions import IsAdminUser
 from energyManagement.permissions import IsAllowedTechnicianOrReadOnly
 from django.db.models import OuterRef, Subquery
+from datetime import datetime
 
+def get_queryset(self):
+    qs = MetricsSubcription.objects.all()
+    start_str = self.request.query_params.get("start")
+    end_str   = self.request.query_params.get("end")
+
+    if start_str and end_str:
+        try:
+            start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
+            end   = datetime.fromisoformat(end_str.replace("Z", "+00:00"))
+            return qs.filter(created_on__range=(start, end))
+        except ValueError:
+            return MetricsSubcription.objects.none()
+
+    return qs
 # Create your views here.
 class DeviceListCreateView(generics.ListCreateAPIView):
     queryset = Device.objects.all()
@@ -50,8 +65,26 @@ class MetricsSubcriptionListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
-        
 class MetricsSubcriptionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MetricsSubcription.objects.all()
     serializer_class = MetricsSubcriptionSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class MetricsSubcriptionFilteredListView(generics.ListAPIView):
+    serializer_class = MetricsSubcriptionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    #site insensitive as i am not sure if that is a requirement or not
+    def get_queryset(self):
+        qs = MetricsSubcription.objects.all()
+        start_str = self.request.query_params.get("start")
+        end_str = self.request.query_params.get("end")
+
+        if start_str and end_str:
+            try:
+                start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
+                end = datetime.fromisoformat(end_str.replace("Z", "+00:00"))
+                return qs.filter(created_on__range=(start, end))
+            except ValueError:
+                return MetricsSubcription.objects.none()
+
+        return qs

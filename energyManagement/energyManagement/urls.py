@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib import admin
 from sites.views import SiteListCreateView,SiteUpdateView,SiteDestroyView,SiteDetailView,TechnicianListCreateView,TechnicianDetailView
-from devices.views import DeviceListCreateView, DeviceDetailView, DeviceMetricListCreateView, DeviceMetricDetailView ,MetricsSubcriptionListCreateView, MetricsSubcriptionDetailView
+from devices.views import DeviceListCreateView,MetricsSubcriptionFilteredListView,MetricsSubcriptionDetailView ,DeviceDetailView, DeviceMetricListCreateView, DeviceMetricDetailView ,MetricsSubcriptionListCreateView, MetricsSubcriptionDetailView
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 
@@ -23,6 +23,6 @@ urlpatterns = [
     #metrics subscriptions
     path("metrics-subscription/", MetricsSubcriptionListCreateView.as_view(), name="metric-subscription-create"),
     path("metrics-subscription/<int:pk>/", MetricsSubcriptionDetailView.as_view(), name="metric-subscription-detail"),
-
+    path("metric-subscriptions-timeframe/",MetricsSubcriptionFilteredListView.as_view(),name="metric-subscription-filtered-list",),
 ]
 
