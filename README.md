@@ -1,4 +1,4 @@
-# wattstor-test
+# Energy Management Platform
 Used Django Framework, follow the steps to start the project:
 create venv and activate it
 Install Requirements: (pip install requirements.txt)
