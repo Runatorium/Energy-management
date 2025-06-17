@@ -4,8 +4,14 @@ from .models import Site,Technician
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAdminUser
 from energyManagement.permissions import IsAllowedTechnicianOrReadOnly
+from rest_framework.permissions import AllowAny
+from .serializers import RegisterUserSerializer
+from django.contrib.auth.models import User
 
-
+class RegisterUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterUserSerializer
+    permission_classes = [AllowAny]
 
 
 #Service for Creating new Sites, this ideally should be be done with it's own comprehensive system as i assume
