@@ -7,10 +7,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("sites/", SiteListCreateView.as_view(), name="site-list-create"),
-    path("sites-destroy/<int:pk>/", SiteDestroyView.as_view(), name="site-destroy"),
-    path("sites-update/<int:pk>/", SiteUpdateView.as_view(), name="site-update"),
-    path("sites-details/<int:pk>/", SiteDetailView.as_view(), name="site-detail"),
+    path("sites/", SiteListCreateView.as_view(), name="site-list"),
+    path("sites/<int:pk>/", SiteDetailView.as_view(), name="site-detail"),
+    path("sites/<int:pk>/update/", SiteUpdateView.as_view(), name="site-update"),
+    path("sites/<int:pk>/delete/", SiteDestroyView.as_view(), name="site-delete"),
     path("technicians/", TechnicianListCreateView.as_view(), name="technician-list-create"),
     path("technicians/<int:pk>/", TechnicianDetailView.as_view(), name="technician-detail"),
     path('api/login/', obtain_auth_token, name='api_token_auth'),
