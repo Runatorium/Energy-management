@@ -56,6 +56,7 @@ GET: you will be able to retrieve a specific device metric
 
 
 AS A TECHNICIAN YOU WILL BE ABLE TO:
+do everything listed above and:
 -----------------------------------------------------------------------------------
 devices-metrics (CREATE, RETRIEVE)
 
@@ -75,11 +76,36 @@ DELETE: a valid Technician will delete the device of that site
 -----------------------------------------------------------------------------------
 
 
+AS A ADMIN YOU WILL BE ABLE TO:
+do everything listed above and:
+-----------------------------------------------------------------------------------
+you will have access to assign technician roles and create and edit sites:
+SITES
 
+"sites/":
+CREATE: a single site
+GET: the list of all sites
 
+"sites/<int:pk>/":
+GET: retrieve single site
 
+"sites/<int:pk>/update/":
+UPDATE: single site
 
+"sites/<int:pk>/delete/":
+DELETE: single site
 
+-----------------------------------------------------------------------------------
+TECHNICIANS
+
+"technicians/"
+POST: Create a technician from an existing user
+GET: the list of all technicians and their assigned sites
+
+"technicians/<int:pk>/"
+DELETE: a single technician
+UPDATE: a single technician
+RETRIEVE: a single technician
 
 
 
